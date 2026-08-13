@@ -1,0 +1,148 @@
+RFC 768                                                        J. Postel
+                                                                     ISI
+                                                          28 Agosto 1980
+
+                    Protocolo de Datagrama do Usuário
+                         ----------------------
+
+Introdução
+------------
+
+Esse protocolo de datagrama do usuário (UDP) é definido para disponibilizar 
+um modo de datagrama para comunicação computacional baseada em comutação de 
+pacotes em um ambiente de um conjunto de redes interconectadas. Esse protoco
+lo supõe que o protocolo de Internet (IP) [1]é usado como protocolo subjacente.
+
+Esse protocolo fornece um procedimento para programas de aplicações enviarem 
+mensagens para outros programas com um mecanismo de protocolo mínimo. O protocolo 
+é orientado a transações, e proteção a entrega e a duplicatas não são garantidas.
+Aplicações que exigem entrega confiavel e ordenada de fluxos de dados devem usar o 
+Protocolo de Controle de Transmissão (TCP) [2].
+
+Formato
+------
+
+                                    
+                  0      7 8     15 16    23 24    31  
+                 +--------+--------+--------+--------+ 
+                 |     Porta de    |     Porta de    | 
+                 |      Origem     |      Destino    | 
+                 +--------+--------+--------+--------+ 
+                 |                 |    Soma de      | 
+                 |    Tamanho      |   Verificação   | 
+                 +--------+--------+--------+--------+ 
+                 |                                     
+                 |          octetos de dados ...            
+                 +---------------- ...                 
+
+             Formato do Cabeçalho do Datagrama do Usuário
+
+Campos
+------
+
+A porta de origem é um campo opcional, quando significativo, indica a porta 
+do processo remetente, e pode supor que é a porta a qual a resposta deve ser 
+endereçada na ausência de qualquer outra informação. Se não usada, um valor de
+zero é inserido.
+
+Postel                                                         [pagina 1]
+
+
+
+                                                             28 Ago 1980
+Protocolo de Datagrama do Usuário                                RFC 768
+Campos
+
+A porta de destino tem um significado dentro do contexto de um determinado
+endereço de destino da Internet.
+
+Tamanho é o campo em octetos desse datagrama do usuário incluindo esse cabeçalho
+e os dados (Isso significa que o valor mínimo do tamanho é oito. )
+
+A soma de verificação é um complemento de 1 dos 16-bit da soma do complemento 
+de um de um pseudo cabeçalho de informação do cabeçalho IP, o cabeçalho UDP, e 
+os dados, adicionados com octetos zerados no final (se necessário) para chegar a 
+um multiplo de dois octetos.
+
+The pseudo  header  conceptually prefixed to the UDP header contains the
+source  address,  the destination  address,  the protocol,  and the  UDP
+length.   This information gives protection against misrouted datagrams.
+This checksum procedure is the same as is used in TCP.
+
+                  0      7 8     15 16    23 24    31 
+                 +--------+--------+--------+--------+
+                 |          source address           |
+                 +--------+--------+--------+--------+
+                 |        destination address        |
+                 +--------+--------+--------+--------+
+                 |  zero  |protocol|   UDP length    |
+                 +--------+--------+--------+--------+
+
+If the computed  checksum  is zero,  it is transmitted  as all ones (the
+equivalent  in one's complement  arithmetic).   An all zero  transmitted
+checksum  value means that the transmitter  generated  no checksum  (for
+debugging or for higher level protocols that don't care).
+
+User Interface
+--------------
+
+A user interface should allow
+
+  the creation of new receive ports,
+
+  receive  operations  on the receive  ports that return the data octets
+  and an indication of source port and source address,
+
+  and an operation  that allows  a datagram  to be sent,  specifying the
+  data, source and destination ports and addresses to be sent.
+
+[page 2]                                                          Postel
+
+
+
+28 Aug 1980
+RFC 768                                           User Datagram Protocol
+                                                            IP Interface
+
+IP Interface
+-------------
+
+The UDP module  must be able to determine  the  source  and  destination
+internet addresses and the protocol field from the internet header.  One
+possible  UDP/IP  interface  would return  the whole  internet  datagram
+including all of the internet header in response to a receive operation.
+Such an interface  would  also allow  the UDP to pass  a  full  internet
+datagram  complete  with header  to the IP to send.  The IP would verify
+certain fields for consistency and compute the internet header checksum.
+
+Protocol Application
+--------------------
+
+The major uses of this protocol is the Internet Name Server [3], and the
+Trivial File Transfer [4].
+
+Protocol Number
+---------------
+
+This is protocol  17 (21 octal)  when used  in  the  Internet  Protocol.
+Other protocol numbers are listed in [5].
+
+References
+----------
+
+[1]     Postel,   J.,   "Internet  Protocol,"  RFC 760,  USC/Information
+        Sciences Institute, January 1980.
+
+[2]     Postel,    J.,   "Transmission   Control   Protocol,"   RFC 761,
+        USC/Information Sciences Institute, January 1980.
+
+[3]     Postel,  J.,  "Internet  Name Server,"  USC/Information Sciences
+        Institute, IEN 116, August 1979.
+
+[4]     Sollins,  K.,  "The TFTP Protocol,"  Massachusetts  Institute of
+        Technology, IEN 133, January 1980.
+
+[5]     Postel,   J.,   "Assigned   Numbers,"  USC/Information  Sciences
+        Institute, RFC 762, January 1980.
+
+Postel                                                          [page 3]

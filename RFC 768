@@ -64,18 +64,18 @@ de um de um pseudo cabeçalho de informação do cabeçalho IP, o cabeçalho UDP
 os dados, adicionados com octetos zerados no final (se necessário) para chegar a 
 um multiplo de dois octetos.
 
-The pseudo  header  conceptually prefixed to the UDP header contains the
-source  address,  the destination  address,  the protocol,  and the  UDP
-length.   This information gives protection against misrouted datagrams.
-This checksum procedure is the same as is used in TCP.
+O pseudo cabeçalho conceitualmente predixo ao cabeçalho UDP contém o endereço
+de origem, o endereço de destino, o protocolo, e o tamanho do UDP. Essa informação
+da proteção contra datagramas mal roteados. Essa soma de verificação é a mesma
+usada no TCP.
 
                   0      7 8     15 16    23 24    31 
                  +--------+--------+--------+--------+
-                 |          source address           |
+                 |      endereço de origem           |
                  +--------+--------+--------+--------+
-                 |        destination address        |
+                 |      endereço de destino          |
                  +--------+--------+--------+--------+
-                 |  zero  |protocol|   UDP length    |
+                 |  zero  |protocol|   tamanho UDP   |
                  +--------+--------+--------+--------+
 
 If the computed  checksum  is zero,  it is transmitted  as all ones (the

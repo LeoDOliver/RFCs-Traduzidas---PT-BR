@@ -78,12 +78,12 @@ usada no TCP.
                  |  zero  |protocol|   tamanho UDP   |
                  +--------+--------+--------+--------+
 
-If the computed  checksum  is zero,  it is transmitted  as all ones (the
-equivalent  in one's complement  arithmetic).   An all zero  transmitted
-checksum  value means that the transmitter  generated  no checksum  (for
-debugging or for higher level protocols that don't care).
+Se a soma de verificação é zero, é transmitido todos com ums (o equivalente
+na aritmetica do complemente de um). Uma soma de verificação transmitida
+toda com zeros significa que o transmissor não gerou nenhuma soma de verificação
+(para depuração ou para protocolos de nível mais alto que não se importam).
 
-User Interface
+Interface do Usuário
 --------------
 
 A user interface should allow

@@ -86,17 +86,17 @@ toda com zeros significa que o transmissor não gerou nenhuma soma de verificaç
 Interface do Usuário
 --------------
 
-A user interface should allow
+Uma interface de usuário deve permitir
 
-  the creation of new receive ports,
+  a criação de novas portas de recepção,
 
-  receive  operations  on the receive  ports that return the data octets
-  and an indication of source port and source address,
+  operações de recepção nas portas receptoras que retornam os octetos de dados
+  e uma indicação da porta de origem e do endereço de origem,
 
-  and an operation  that allows  a datagram  to be sent,  specifying the
-  data, source and destination ports and addresses to be sent.
-
-[page 2]                                                          Postel
+  e uma operação que permite um datagrama ser enviado, especificando os dados,
+  portas de origem e destino e o endereço a ser enviado.
+ 
+[pagina 2]                                                        Postel
 
 
 
